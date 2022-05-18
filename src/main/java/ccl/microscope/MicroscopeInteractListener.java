@@ -61,7 +61,10 @@ public class MicroscopeInteractListener implements Listener {
             frame.setFacingDirection(BlockFace.UP);
             frame.setRotation(fromPlayersFacing(player));
             frame.setVisible(false);
-            frame.setItem(is);
+            // clone the ItemStack and set the amount to 1
+            ItemStack equipment = is.clone();
+            equipment.setAmount(1);
+            frame.setItem(equipment);
             // set the item that the microscope should display
             frame.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.INTEGER, 10000);
             // remove item from player's hand
