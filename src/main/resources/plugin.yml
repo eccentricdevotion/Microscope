@@ -1,0 +1,19 @@
+author: ccl
+description: View slides in a microscope
+main: ccl.microscope.Microscope
+name: Microscope
+load: POSTWORLD
+version: 1.0.0
+api-version: 1.18
+website: http://tardisjenkins.duckdns.org:8080/job/microscope
+dev-url: http://tardisjenkins.duckdns.org:8080/job/microscope
+permissions:
+  microscope.use:
+    description: A description.
+    default: op
+commands:
+  microscope:
+    description: Give lab items to a player.
+    usage: /<command> give [MICROSCOPE|ELECTRON_MICROSCOPE|SLIDE_RACK]
+    permission: microscope.use
+    permission-message: You don't have the permission <permission> to use this command
