@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -25,6 +26,9 @@ public class MicroscopeItemFrameListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onInteractEntity(PlayerInteractAtEntityEvent event) {
+        if (event.getHand().equals(EquipmentSlot.OFF_HAND)) {
+            return;
+        }
         Entity entity = event.getRightClicked();
         if (entity instanceof ItemFrame frame) {
             if (!frame.getPersistentDataContainer().has(plugin.getMicroscopeKey(), PersistentDataType.INTEGER)) {
@@ -77,20 +81,10 @@ public class MicroscopeItemFrameListener implements Listener {
                     slide.setItemMeta(slideMeta);
                     plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.getInventory().setItemInMainHand(slide), 1L);
                 }
-                default -> {
-                    // electron microscope
+                case COMPUTER_MONITOR -> {
+                    // computer storage
                     if (MicroscopeUtils.hasItemInHand(is, Material.LIGHT_BLUE_STAINED_GLASS, plugin)) {
-                        // set microscope slide
-                        int cmd = is.getItemMeta().getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
-                        // remember item in hand for restoration
-                        plugin.getStoredStacks().put(player.getUniqueId(), is);
-                        // set item in hand
-                        ItemStack screen = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS, 1);
-                        ItemMeta screenMeta = screen.getItemMeta();
-                        screenMeta.setDisplayName(Screen.values()[cmd >= 10000 ? cmd - 10000 : cmd].getName());
-                        screenMeta.setCustomModelData(cmd);
-                        screen.setItemMeta(screenMeta);
-                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.getInventory().setItemInMainHand(screen), 1L);
+                        plugin.reduceInHand(player);
                     } else {
                         // open computer GUI
                         ItemStack[] screens = new ComputerInventory(plugin).getItems();
@@ -98,6 +92,27 @@ public class MicroscopeItemFrameListener implements Listener {
                         inventory.setContents(screens);
                         player.openInventory(inventory);
                     }
+                }
+                default -> {
+                    // electron microscope
+                    int cmd;
+                    if (MicroscopeUtils.hasItemInHand(is, Material.LIGHT_BLUE_STAINED_GLASS, plugin)) {
+                        // set microscope screen
+                        cmd = is.getItemMeta().getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
+                        frame.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.INTEGER, cmd);
+                    } else {
+                        // view current slide
+                        cmd = frame.getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
+                    }
+                    // remember item in hand for restoration
+                    plugin.getStoredStacks().put(player.getUniqueId(), is);
+                    // set item in hand
+                    ItemStack screen = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS, 1);
+                    ItemMeta screenMeta = screen.getItemMeta();
+                    screenMeta.setDisplayName(Screen.values()[cmd >= 10000 ? cmd - 10000 : cmd].getName());
+                    screenMeta.setCustomModelData(cmd);
+                    screen.setItemMeta(screenMeta);
+                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.getInventory().setItemInMainHand(screen), 1L);
                 }
             }
         }

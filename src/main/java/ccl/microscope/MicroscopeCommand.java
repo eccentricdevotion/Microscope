@@ -18,7 +18,7 @@ import java.util.Locale;
 public class MicroscopeCommand implements CommandExecutor, TabCompleter {
 
     private final Microscope plugin;
-    private final ImmutableList<String> GIVE_SUBS = ImmutableList.of("MICROSCOPE", "ELECTRON_MICROSCOPE", "SLIDE_RACK");
+    private final ImmutableList<String> GIVE_SUBS = ImmutableList.of("MICROSCOPE", "ELECTRON_MICROSCOPE", "SLIDE_RACK", "COMPUTER_MONITOR");
 
     MicroscopeCommand(Microscope plugin) {
         this.plugin = plugin;

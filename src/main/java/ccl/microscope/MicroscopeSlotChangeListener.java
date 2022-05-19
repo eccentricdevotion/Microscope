@@ -19,8 +19,10 @@ public class MicroscopeSlotChangeListener implements Listener {
         Player player = event.getPlayer();
         if (plugin.getStoredStacks().containsKey(player.getUniqueId())) {
             event.setCancelled(true);
-            player.getInventory().setItemInMainHand(plugin.getStoredStacks().get(player.getUniqueId()));
-            plugin.getStoredStacks().remove(player.getUniqueId());
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                player.getInventory().setItemInMainHand(plugin.getStoredStacks().get(player.getUniqueId()));
+                plugin.getStoredStacks().remove(player.getUniqueId());
+            }, 1L);
         }
     }
 
@@ -37,8 +39,10 @@ public class MicroscopeSlotChangeListener implements Listener {
         Player player = event.getPlayer();
         if (plugin.getStoredStacks().containsKey(player.getUniqueId())) {
             event.setCancelled(true);
-            player.getInventory().setItemInMainHand(plugin.getStoredStacks().get(player.getUniqueId()));
-            plugin.getStoredStacks().remove(player.getUniqueId());
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                player.getInventory().setItemInMainHand(plugin.getStoredStacks().get(player.getUniqueId()));
+                plugin.getStoredStacks().remove(player.getUniqueId());
+            }, 1L);
         }
     }
 
@@ -55,8 +59,10 @@ public class MicroscopeSlotChangeListener implements Listener {
     public void onGameModeChange(PlayerGameModeChangeEvent event) {
         Player player = event.getPlayer();
         if (plugin.getStoredStacks().containsKey(player.getUniqueId())) {
-            player.getInventory().setItemInMainHand(plugin.getStoredStacks().get(player.getUniqueId()));
-            plugin.getStoredStacks().remove(player.getUniqueId());
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                player.getInventory().setItemInMainHand(plugin.getStoredStacks().get(player.getUniqueId()));
+                plugin.getStoredStacks().remove(player.getUniqueId());
+            }, 1L);
         }
     }
 }

@@ -36,7 +36,7 @@ public class MicroscopeGUIListener implements Listener {
                 } else {
                     ItemStack is = event.getInventory().getItem(slot);
                     if (is != null) {
-                        // add slid/screen to player's inventory
+                        // add slide/screen to player's inventory
                         ItemStack ss = is.clone();
                         ItemMeta ssMeta = ss.getItemMeta();
                         ssMeta.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.INTEGER, slot + 10000);

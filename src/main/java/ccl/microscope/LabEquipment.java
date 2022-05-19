@@ -8,7 +8,7 @@ public enum LabEquipment {
 
     MICROSCOPE(Material.LIGHT_GRAY_DYE),
     ELECTRON_MICROSCOPE(Material.GRAY_DYE),
-    //    MONITOR(Material.LIGHT_BLUE_DYE),
+    COMPUTER_MONITOR(Material.LIGHT_BLUE_DYE),
     SLIDE_RACK(Material.BROWN_DYE);
 
     private static HashMap<Material, LabEquipment> BY_MATERIAL = new HashMap<>();
