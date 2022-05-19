@@ -27,7 +27,7 @@ public class Microscope extends JavaPlugin {
         pm.registerEvents(new MicroscopeItemFrameListener(this), this);
         pm.registerEvents(new MicroscopeSlotChangeListener(this), this);
         pm.registerEvents(new MicroscopeDamageListener(this), this);
-        pm.registerEvents(new MicroscopeSlideGUIListener(this), this);
+        pm.registerEvents(new MicroscopeGUIListener(this), this);
         pm.registerEvents(new MicroscopePlaceListener(this), this);
         getCommand("microscope").setExecutor(new MicroscopeCommand(this));
         microscopeKey = new NamespacedKey(this, "microscope");

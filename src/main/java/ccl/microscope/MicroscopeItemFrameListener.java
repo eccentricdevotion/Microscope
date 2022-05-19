@@ -46,7 +46,7 @@ public class MicroscopeItemFrameListener implements Listener {
             switch (equipment) {
                 case SLIDE_RACK -> {
                     // if hand contains a slide return it
-                    if (MicroscopeUtils.hasSlideInHand(is, plugin)) {
+                    if (MicroscopeUtils.hasItemInHand(is, Material.GLASS, plugin)) {
                         plugin.reduceInHand(player);
                     } else {
                         // open the slide GUI
@@ -59,7 +59,7 @@ public class MicroscopeItemFrameListener implements Listener {
                 case MICROSCOPE -> {
                     // microscope
                     int cmd;
-                    if (MicroscopeUtils.hasSlideInHand(is, plugin)) {
+                    if (MicroscopeUtils.hasItemInHand(is, Material.GLASS, plugin)) {
                         // set microscope slide
                         cmd = is.getItemMeta().getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
                         frame.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.INTEGER, cmd);
@@ -79,6 +79,25 @@ public class MicroscopeItemFrameListener implements Listener {
                 }
                 default -> {
                     // electron microscope
+                    if (MicroscopeUtils.hasItemInHand(is, Material.LIGHT_BLUE_STAINED_GLASS, plugin)) {
+                        // set microscope slide
+                        int cmd = is.getItemMeta().getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
+                        // remember item in hand for restoration
+                        plugin.getStoredStacks().put(player.getUniqueId(), is);
+                        // set item in hand
+                        ItemStack screen = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS, 1);
+                        ItemMeta screenMeta = screen.getItemMeta();
+                        screenMeta.setDisplayName(Screen.values()[cmd >= 10000 ? cmd - 10000 : cmd].getName());
+                        screenMeta.setCustomModelData(cmd);
+                        screen.setItemMeta(screenMeta);
+                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.getInventory().setItemInMainHand(screen), 1L);
+                    } else {
+                        // open computer GUI
+                        ItemStack[] screens = new ComputerInventory(plugin).getItems();
+                        Inventory inventory = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Computer Storage");
+                        inventory.setContents(screens);
+                        player.openInventory(inventory);
+                    }
                 }
             }
         }

@@ -7,11 +7,11 @@ import org.bukkit.persistence.PersistentDataType;
 
 class MicroscopeUtils {
 
-    static boolean hasSlideInHand(ItemStack is, Microscope plugin) {
+    static boolean hasItemInHand(ItemStack is, Material type, Microscope plugin) {
         if (is == null) {
             return false;
         }
-        if (!is.getType().equals(Material.GLASS)) {
+        if (!is.getType().equals(type)) {
             return false;
         }
         // does it have item meta
@@ -31,8 +31,7 @@ class MicroscopeUtils {
         return im.getPersistentDataContainer().has(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
     }
 
-    public static String uppercaseFirst(String s) {
+    static String uppercaseFirst(String s) {
         return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
     }
-
 }
