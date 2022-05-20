@@ -36,6 +36,10 @@ public class MicroscopeItemFrameListener implements Listener {
             }
             event.setCancelled(true);
             frame.setRotation(getPreviousRotation(frame.getRotation()));
+            Player player = event.getPlayer();
+            if (plugin.getStoredStacks().containsKey(player.getUniqueId())) {
+                return;
+            }
             // get the item in the frame
             ItemStack dye = frame.getItem();
             if (dye == null) {
@@ -44,7 +48,6 @@ public class MicroscopeItemFrameListener implements Listener {
             if (!LabEquipment.getByMaterial().containsKey(dye.getType())) {
                 return;
             }
-            Player player = event.getPlayer();
             ItemStack is = player.getInventory().getItemInMainHand();
             LabEquipment equipment = LabEquipment.getByMaterial().get(dye.getType());
             switch (equipment) {
