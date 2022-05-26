@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class MicroscopeCommand implements CommandExecutor, TabCompleter {
 
-    private final ImmutableList<String> GIVE_SUBS = ImmutableList.of("MICROSCOPE", "ELECTRON_MICROSCOPE", "SLIDE_RACK", "COMPUTER_MONITOR", "TELESCOPE", "FILING_CABINET");
+    private final ImmutableList<String> GIVE_SUBS = ImmutableList.of("MICROSCOPE", "SLIDE_RACK", "ELECTRON_MICROSCOPE", "COMPUTER_MONITOR", "TELESCOPE", "FILING_CABINET");
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -28,6 +28,10 @@ public class MicroscopeCommand implements CommandExecutor, TabCompleter {
             }
             if (player == null) {
                 sender.sendMessage("Command can only be used by a player!");
+                return true;
+            }
+            if (!player.hasPermission("microscope.use")) {
+                sender.sendMessage("You do not have permission to use the Microscope command!");
                 return true;
             }
             if (args.length < 2) {

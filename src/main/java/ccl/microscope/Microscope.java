@@ -21,7 +21,6 @@ public class Microscope extends JavaPlugin {
 
     @Override
     public void onEnable() {
-//        saveDefaultConfig();
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new MicroscopeInteractListener(this), this);
         pm.registerEvents(new MicroscopeItemFrameListener(this), this);
