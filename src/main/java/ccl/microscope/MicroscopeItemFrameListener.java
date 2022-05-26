@@ -96,7 +96,7 @@ public class MicroscopeItemFrameListener implements Listener {
                         player.openInventory(inventory);
                     }
                 }
-                default -> {
+                case ELECTRON_MICROSCOPE -> {
                     // electron microscope
                     int cmd;
                     if (MicroscopeUtils.hasItemInHand(is, Material.LIGHT_BLUE_STAINED_GLASS, plugin)) {
@@ -116,6 +116,39 @@ public class MicroscopeItemFrameListener implements Listener {
                     screenMeta.setCustomModelData(cmd);
                     screen.setItemMeta(screenMeta);
                     plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.getInventory().setItemInMainHand(screen), 1L);
+                }
+                case FILING_CABINET -> {
+                    // filing cabinet
+                    if (MicroscopeUtils.hasItemInHand(is, Material.BLACK_STAINED_GLASS, plugin)) {
+                        plugin.reduceInHand(player);
+                    } else {
+                        // open filing cabinet GUI
+                        ItemStack[] helmets = new FileCabinetInventory(plugin).getItems();
+                        Inventory inventory = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Map Cabinet");
+                        inventory.setContents(helmets);
+                        player.openInventory(inventory);
+                    }
+                }
+                default -> {
+                    // telescope
+                    int cmd;
+                    if (MicroscopeUtils.hasItemInHand(is, Material.BLACK_STAINED_GLASS, plugin)) {
+                        // set microscope screen
+                        cmd = is.getItemMeta().getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
+                        frame.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.INTEGER, cmd);
+                    } else {
+                        // view current slide
+                        cmd = frame.getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
+                    }
+                    // remember item in hand for restoration
+                    plugin.getStoredStacks().put(player.getUniqueId(), is);
+                    // set item in hand
+                    ItemStack helmet = new ItemStack(Material.BLACK_STAINED_GLASS, 1);
+                    ItemMeta helmetMeta = helmet.getItemMeta();
+                    helmetMeta.setDisplayName(ScopeView.values()[cmd >= 10000 ? cmd - 10000 : cmd].getName());
+                    helmetMeta.setCustomModelData(cmd);
+                    helmet.setItemMeta(helmetMeta);
+                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.getInventory().setItemInMainHand(helmet), 1L);
                 }
             }
         }

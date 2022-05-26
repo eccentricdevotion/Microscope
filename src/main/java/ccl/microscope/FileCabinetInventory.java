@@ -5,11 +5,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-class ComputerInventory {
+class FileCabinetInventory {
 
     private final Microscope plugin;
 
-    ComputerInventory(Microscope plugin) {
+    FileCabinetInventory(Microscope plugin) {
         this.plugin = plugin;
     }
 
@@ -18,14 +18,14 @@ class ComputerInventory {
         ItemStack[] stacks = new ItemStack[54];
 
         // make screens
-        for (Screen screen : Screen.values()) {
-            ItemStack is = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS, 1);
+        for (ScopeView view : ScopeView.values()) {
+            ItemStack is = new ItemStack(Material.BLACK_STAINED_GLASS, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(screen.getName());
+            im.setDisplayName(view.getName());
             im.setCustomModelData(9999);
-            im.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.INTEGER, screen.getCustomModelData());
+            im.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.INTEGER, view.getCustomModelData());
             is.setItemMeta(im);
-            stacks[screen.ordinal()] = is;
+            stacks[view.ordinal()] = is;
         }
         // Cancel / close
         ItemStack close = new ItemStack(Material.BOWL, 1);

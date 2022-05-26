@@ -7,7 +7,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 class SlideInventory {
 
-    private Microscope plugin;
+    private final Microscope plugin;
 
     SlideInventory(Microscope plugin) {
         this.plugin = plugin;

@@ -7,9 +7,11 @@ import java.util.HashMap;
 public enum LabEquipment {
 
     MICROSCOPE(Material.LIGHT_GRAY_DYE),
+    SLIDE_RACK(Material.BROWN_DYE),
     ELECTRON_MICROSCOPE(Material.GRAY_DYE),
     COMPUTER_MONITOR(Material.LIGHT_BLUE_DYE),
-    SLIDE_RACK(Material.BROWN_DYE);
+    TELESCOPE(Material.WHITE_DYE),
+    FILING_CABINET(Material.ORANGE_DYE);
 
     private static HashMap<Material, LabEquipment> BY_MATERIAL = new HashMap<>();
 

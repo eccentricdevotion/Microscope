@@ -23,6 +23,6 @@ public class MicroscopePlaceListener implements Listener {
         }
         Player player = event.getPlayer();
         ItemStack is = player.getInventory().getItemInMainHand();
-        event.setCancelled(MicroscopeUtils.hasItemInHand(is, Material.GLASS, plugin) || MicroscopeUtils.hasItemInHand(is, Material.LIGHT_BLUE_STAINED_GLASS, plugin));
+        event.setCancelled(MicroscopeUtils.hasItemInHand(is, Material.GLASS, plugin) || MicroscopeUtils.hasItemInHand(is, Material.BLACK_STAINED_GLASS, plugin));
     }
 }

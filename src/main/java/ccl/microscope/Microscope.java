@@ -21,7 +21,7 @@ public class Microscope extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        saveDefaultConfig();
+//        saveDefaultConfig();
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new MicroscopeInteractListener(this), this);
         pm.registerEvents(new MicroscopeItemFrameListener(this), this);
@@ -29,7 +29,9 @@ public class Microscope extends JavaPlugin {
         pm.registerEvents(new MicroscopeDamageListener(this), this);
         pm.registerEvents(new MicroscopeGUIListener(this), this);
         pm.registerEvents(new MicroscopePlaceListener(this), this);
-        getCommand("microscope").setExecutor(new MicroscopeCommand(this));
+        MicroscopeCommand microscopeCommand = new MicroscopeCommand();
+        getCommand("microscope").setExecutor(microscopeCommand);
+        getCommand("microscope").setTabCompleter(microscopeCommand);
         microscopeKey = new NamespacedKey(this, "microscope");
     }
 

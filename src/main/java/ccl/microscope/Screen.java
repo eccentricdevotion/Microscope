@@ -31,6 +31,4 @@ public enum Screen {
     public String getName() {
         return MicroscopeUtils.uppercaseFirst(toString()).replace("_", " ");
     }
-
-
 }

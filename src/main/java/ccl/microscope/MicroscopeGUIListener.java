@@ -24,7 +24,7 @@ public class MicroscopeGUIListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onInventoryClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
-        if (view.getTitle().equals(ChatColor.DARK_RED + "Slides") || view.getTitle().equals(ChatColor.DARK_RED + "Computer Storage")) {
+        if (view.getTitle().equals(ChatColor.DARK_RED + "Slides") || view.getTitle().equals(ChatColor.DARK_RED + "Computer Storage") || view.getTitle().equals(ChatColor.DARK_RED + "Map Cabinet")) {
             event.setCancelled(true);
             Player player = (Player) event.getWhoClicked();
             int slot = event.getRawSlot();
