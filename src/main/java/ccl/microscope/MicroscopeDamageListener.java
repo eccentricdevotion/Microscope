@@ -1,5 +1,6 @@
 package ccl.microscope;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
@@ -29,7 +30,7 @@ public class MicroscopeDamageListener implements Listener {
             event.setCancelled(true);
             // get the item in the frame
             ItemStack dye = frame.getItem();
-            if (dye == null) {
+            if (dye.getType().isAir()) {
                 return;
             }
             if (!LabEquipment.getByMaterial().containsKey(dye.getType())) {

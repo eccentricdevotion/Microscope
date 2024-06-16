@@ -15,7 +15,7 @@ public class MicroscopeSlotChangeListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onInventoryChange(PlayerSwapHandItemsEvent event) {
+    public void onSwapHand(PlayerSwapHandItemsEvent event) {
         Player player = event.getPlayer();
         if (plugin.getStoredStacks().containsKey(player.getUniqueId())) {
             event.setCancelled(true);
@@ -27,7 +27,7 @@ public class MicroscopeSlotChangeListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onInventoryChange(PlayerDropItemEvent event) {
+    public void onDropItem(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
         if (plugin.getStoredStacks().containsKey(player.getUniqueId())) {
             event.setCancelled(true);

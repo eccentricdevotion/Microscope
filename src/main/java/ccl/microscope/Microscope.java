@@ -12,7 +12,7 @@ import java.util.UUID;
 public class Microscope extends JavaPlugin {
 
     private NamespacedKey microscopeKey;
-    private HashMap<UUID, ItemStack> storedStacks = new HashMap<>();
+    private final HashMap<UUID, ItemStack> storedStacks = new HashMap<>();
 
     @Override
     public void onDisable() {

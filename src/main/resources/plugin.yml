@@ -3,8 +3,8 @@ description: View slides in a microscope
 main: ccl.microscope.Microscope
 name: Microscope
 load: POSTWORLD
-version: 1.0.0
-api-version: 1.18
+version: 1.0.1
+api-version: 1.21
 website: http://tardisjenkins.duckdns.org:8080/job/microscope
 dev-url: http://tardisjenkins.duckdns.org:8080/job/microscope
 permissions:

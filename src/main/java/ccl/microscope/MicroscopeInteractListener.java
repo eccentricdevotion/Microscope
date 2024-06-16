@@ -35,7 +35,7 @@ public class MicroscopeInteractListener implements Listener {
         }
         Player player = event.getPlayer();
         ItemStack is = player.getInventory().getItemInMainHand();
-        if (is != null && LabEquipment.getByMaterial().containsKey(is.getType())) {
+        if (!is.getType().isAir() && LabEquipment.getByMaterial().containsKey(is.getType())) {
             // does it have item meta
             ItemMeta im = is.getItemMeta();
             if (im == null) {

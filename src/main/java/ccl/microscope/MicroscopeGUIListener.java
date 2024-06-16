@@ -42,7 +42,7 @@ public class MicroscopeGUIListener implements Listener {
                         ssMeta.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.INTEGER, slot + 10000);
                         ss.setItemMeta(ssMeta);
                         HashMap<Integer, ItemStack> items = player.getInventory().addItem(ss);
-                        if (items.size() > 0) {
+                        if (!items.isEmpty()) {
                             player.getWorld().dropItem(player.getLocation(), ss);
                         }
                     }

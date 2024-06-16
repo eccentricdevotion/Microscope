@@ -42,13 +42,17 @@ public class MicroscopeItemFrameListener implements Listener {
             }
             // get the item in the frame
             ItemStack dye = frame.getItem();
-            if (dye == null) {
+            if (dye.getType().isAir()) {
                 return;
             }
             if (!LabEquipment.getByMaterial().containsKey(dye.getType())) {
                 return;
             }
             ItemStack is = player.getInventory().getItemInMainHand();
+            ItemMeta im = is.getItemMeta();
+            if (im == null) {
+                return;
+            }
             LabEquipment equipment = LabEquipment.getByMaterial().get(dye.getType());
             switch (equipment) {
                 case SLIDE_RACK -> {
@@ -68,7 +72,7 @@ public class MicroscopeItemFrameListener implements Listener {
                     int cmd;
                     if (MicroscopeUtils.hasItemInHand(is, Material.GLASS, plugin)) {
                         // set microscope slide
-                        cmd = is.getItemMeta().getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
+                        cmd = im.getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
                         frame.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.INTEGER, cmd);
                     } else {
                         // view current slide
@@ -101,7 +105,7 @@ public class MicroscopeItemFrameListener implements Listener {
                     int cmd;
                     if (MicroscopeUtils.hasItemInHand(is, Material.LIGHT_BLUE_STAINED_GLASS, plugin)) {
                         // set microscope screen
-                        cmd = is.getItemMeta().getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
+                        cmd = im.getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
                         frame.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.INTEGER, cmd);
                     } else {
                         // view current slide
@@ -134,7 +138,7 @@ public class MicroscopeItemFrameListener implements Listener {
                     int cmd;
                     if (MicroscopeUtils.hasItemInHand(is, Material.BLACK_STAINED_GLASS, plugin)) {
                         // set microscope screen
-                        cmd = is.getItemMeta().getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
+                        cmd = im.getPersistentDataContainer().get(plugin.getMicroscopeKey(), PersistentDataType.INTEGER);
                         frame.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.INTEGER, cmd);
                     } else {
                         // view current slide

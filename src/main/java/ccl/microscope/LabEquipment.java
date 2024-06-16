@@ -13,7 +13,7 @@ public enum LabEquipment {
     TELESCOPE(Material.WHITE_DYE),
     FILING_CABINET(Material.ORANGE_DYE);
 
-    private static HashMap<Material, LabEquipment> BY_MATERIAL = new HashMap<>();
+    private static final HashMap<Material, LabEquipment> BY_MATERIAL = new HashMap<>();
 
     static {
         for (LabEquipment equipment : values()) {
@@ -21,7 +21,7 @@ public enum LabEquipment {
         }
     }
 
-    public Material material;
+    public final Material material;
 
     LabEquipment(Material material) {
         this.material = material;
